@@ -19,36 +19,40 @@ TimerTask myTask = new TimerTask() {
 };
 
 int x = 285; //fortæller brandmandens start xkoordinat
-int y = 620; //fortæller brandmandens start ykoordinat
+int y = 620; //brandmands start-y
+int bX = 52; //fortæller babyens start start xkoordinat
+int bY = 400;//babys start-y
 PImage bg;
 
 brandmand helt;
 VandTank v1;
+baby bby;
 
 
 //knap er spillet startet
 Boolean erSpilletStartet = false;
 
 void setup() {
-  helt = new brandmand();
   size(700, 700);
   bg = loadImage("hus.jpg");
+  
+  helt = new brandmand(); 
+  bby = new baby();
 
-  //circleX = width/2+circleSize/2+10;
-  //circleY = height/2;
   //hvor hurtigt den tæller ned
   myTimer.schedule(myTask, 1000, 1000);
-  v1 = new VandTank(new PVector(9,9)); //den skal på musens koordinater - skal fortælles nede i draw
+  v1 = new VandTank(); //den skal musens koordinater - skal fortælles i draw
 }
-
 
 
 void draw() {
 //if knappen er trykket kommer baggrund på 
   if (erSpilletStartet) {
-
+    
     background(bg);
     helt.tegnBrandmand(x, y, 65, 65);
+    bby.tegnBaby(bX,bY,20,35); 
+    bby.babyReddet(x+35,y+14);
 
     update(mouseX, mouseY);
     DisplayText();
@@ -57,20 +61,22 @@ void draw() {
     update(mouseX, mouseY);
   
     rect(rectX,rectY,rectSizeX, rectSizeY);
-    //ellipse(circleX, circleY, 44, 54);
 
     if (buttonWasClicked) {
       DisplayText();
     }
   }
   
+  if(erSpilletStartet){ 
   if(keyPressed){ //starter vandet
-    if(key == 'v' || key == 'V'){
-      v1.addParticle();
-      v1.run();
+    if(key == 'v' || key == 'V'){ //bestemmer tilkaldeknappen
+      v1.addVand(new PVector(x+35, y+7)); //giver placeringen for hvor vandet skal komme fra (kan også være mouse)
+      v1.run(); //displayer vandet
+      
     }
     }
-    
+  }
+ 
 }
 
 
@@ -118,6 +124,8 @@ void keyPressed() { //wasd kontrollerne
   } else if (key == 's' || key == 'S') {
     y += 5; //2 pixels ned
   }
+  
+  
 }
 
 

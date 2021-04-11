@@ -1,7 +1,7 @@
 public class brandmand{
   
 
-    void tegnBrandmand(int x,int y, int w, int b){ // tegn en flottere brandmand
+    void tegnBrandmand(int x,int y, int w, int b){ //laver en plads til manden
         PImage bm = loadImage("brandmand.png");
         fill(192, 57, 43);
         image(bm, x,y,w,b);
@@ -11,7 +11,5 @@ public class brandmand{
      color cX = get(230, 58); //farven på de lodrette vægge 230 58 11
    
     void flytBrandmand(){
-     
- 
     }
 }

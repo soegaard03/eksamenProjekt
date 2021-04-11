@@ -2,13 +2,13 @@ class Vand {
   PVector position;
   PVector hastighed;
   PVector acceleration;
-  float livstid;
+  float opacity;
   
  Vand(PVector l) {
     acceleration = new PVector(0, 0.1);
-    hastighed = new PVector(random(-1, 1), random(-2, 3));
+    hastighed = new PVector(random(-1, 1), random(-4, -7));
     position = l.copy();
-    livstid = 20.0;
+    opacity = 255.0;
   }
 
   void run() {
@@ -16,22 +16,23 @@ class Vand {
     display();
   }
 
-  // Method to update position
+  // Methoden der opdatere positionen
   void update() {
     hastighed.add(acceleration);
     position.add(hastighed);
-    livstid -= 2;
+    opacity -= 10;
   }
 
-  // Method to display
+  // metoden for der skal displayes
   void display() {
-    stroke(6, 189, 231, livstid);
-    fill(6, 189, 231, livstid);
+    stroke(6, 189, 231, opacity);
+    fill(6, 189, 231, opacity);
     ellipse(position.x, position.y, 10, 10);
   }
-  // Is the particle still useful?
+  
+  // slet vandet
   boolean isDead() {
-    if (livstid < 0.0) {
+    if (opacity < 0.0) {
       return true;
     } else {
       return false;
