@@ -27,6 +27,7 @@ PImage bg;
 brandmand helt;
 VandTank v1;
 baby bby;
+Labyrint vaeg;
 
 
 //knap er spillet startet
@@ -35,9 +36,11 @@ Boolean erSpilletStartet = false;
 void setup() {
   size(700, 700);
   bg = loadImage("hus.jpg");
+  bg.loadPixels();
   
   helt = new brandmand(); 
   bby = new baby();
+  vaeg = new Labyrint();
 
   //hvor hurtigt den tæller ned
   myTimer.schedule(myTask, 1000, 1000);
@@ -47,21 +50,21 @@ void setup() {
 
 void draw() {
 //if knappen er trykket kommer baggrund på 
+
   if (erSpilletStartet) {
-    
+  
     background(bg);
     helt.tegnBrandmand(x, y, 65, 65);
     bby.tegnBaby(bX,bY,20,35); 
     bby.babyReddet(x+35,y+14);
+    vaeg.mur(x,y);
+    
 
     update(mouseX, mouseY);
     DisplayText();
     } else {
-    
     update(mouseX, mouseY);
-  
     rect(rectX,rectY,rectSizeX, rectSizeY);
-
     if (buttonWasClicked) {
       DisplayText();
     }
@@ -71,12 +74,11 @@ void draw() {
   if(keyPressed){ //starter vandet
     if(key == 'v' || key == 'V'){ //bestemmer tilkaldeknappen
       v1.addVand(new PVector(x+35, y+7)); //giver placeringen for hvor vandet skal komme fra (kan også være mouse)
-      v1.run(); //displayer vandet
-      
+      v1.run(); //displayer vandet 
     }
     }
   }
- 
+
 }
 
 
@@ -115,7 +117,8 @@ void DispalyTimer() {
 
 
 void keyPressed() { //wasd kontrollerne
-  if (key == 'a' || key == 'A') { 
+println();
+  if ((key == 'a' || key == 'A') && !vaeg.hovedRamt()) { 
     x -= 5; //bevæger sig 2 pixels til venstre
   } else if (key == 'd' || key == 'D') {
     x += 5; //2 pixels til højre

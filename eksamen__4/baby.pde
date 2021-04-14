@@ -8,7 +8,7 @@ public class baby{
   }
   
   void babyReddet(int x, int y){
-   if(brandHarBaby == true || x>= 35 && x <= 310 && y >= 375 && y <= 450){ //barneværelsets koordinater
+   if(brandHarBaby == true || x>= 35 && x <= 310 && y >= 375 && y <= 450){ //barneværelsets koordinater //ved at tjekke om bolean er sand vil det sikre at brandmanden ikke mister baby når han forlader værelset igen
      brandHarBaby = true; //sætter boolean til true
      bX = x-25; //giver babyen brandmandens gåkoordinater -25 for at sidde på den venste skulder
      bY = y; 
