@@ -14,7 +14,7 @@ boolean knapRamt = false;
 Timer myTimer = new Timer();
 TimerTask myTask = new TimerTask() {
   public void run() {
-    --countDown;
+   --countDown;
   }
 };
 
@@ -27,7 +27,7 @@ PImage bg;
 brandmand helt;
 VandTank v1;
 baby bby;
-Labyrint vaeg;
+Labyrint vaeg; //hey andrea det her skal med
 
 
 //knap er spillet startet
@@ -35,12 +35,12 @@ Boolean erSpilletStartet = false;
 
 void setup() {
   size(700, 700);
-  bg = loadImage("hus.jpg");
-  bg.loadPixels();
+  bg = loadImage("hus.png"); //hey andrea husk at få det rigtige billede med 
+  bg.loadPixels(); //hey andrea det her skal også med tror jeg
   
   helt = new brandmand(); 
   bby = new baby();
-  vaeg = new Labyrint();
+  vaeg = new Labyrint(); //hey andrea det her skal med
 
   //hvor hurtigt den tæller ned
   myTimer.schedule(myTask, 1000, 1000);
@@ -52,12 +52,11 @@ void draw() {
 //if knappen er trykket kommer baggrund på 
 
   if (erSpilletStartet) {
-  
     background(bg);
     helt.tegnBrandmand(x, y, 65, 65);
     bby.tegnBaby(bX,bY,20,35); 
     bby.babyReddet(x+35,y+14);
-    vaeg.mur(x,y);
+ 
     
 
     update(mouseX, mouseY);
@@ -81,8 +80,6 @@ void draw() {
 
 }
 
-
-
 void update(int x, int y) {
   if ( knapRamt(rectX, rectY, rectSizeX, rectSizeY) ) {
     knapRamt = true;
@@ -96,8 +93,6 @@ void update(int x, int y) {
   }
 }
 
-
-
 String textToDisplay;
 Boolean buttonWasClicked = false;
 int countDown = 31;
@@ -109,29 +104,25 @@ void DisplayText() {
   textSize(32);
 }
 
-
-
 void DispalyTimer() {
 }
 
-
-
+//hey andrea det her skal skiftes ud 
 void keyPressed() { //wasd kontrollerne
-println();
-  if ((key == 'a' || key == 'A') && !vaeg.hovedRamt()) { 
-    x -= 5; //bevæger sig 2 pixels til venstre
-  } else if (key == 'd' || key == 'D') {
-    x += 5; //2 pixels til højre
-  } else if (key == 'w' || key == 'W') {
-    y -= 5; // 2 pixels op
-  } else if (key == 's' || key == 'S') {
-    y += 5; //2 pixels ned
+  if ((key == 'a' || key == 'A') && !vaeg.vskulderRamt(x,y)) { 
+    x -= 1; //bevæger sig 2 pixels til venstre
+  } 
+  if ((key == 'd' || key == 'D') && !vaeg.hskulderRamt(x,y)) {
+    x += 1; //2 pixels til højre
+  } 
+  if ((key == 'w' || key == 'W') && !vaeg.hovedRamt(x,y)) {
+     y -= 1; // 2 pixels op 
+    } 
+  if ((key == 's' || key == 'S') && !vaeg.rygRamt(x,y)) {
+    y += 1; //2 pixels ned
   }
-  
-  
+   
 }
-
-
 
 void mouseClicked() {
   if (knapRamt) {
@@ -139,19 +130,6 @@ void mouseClicked() {
     erSpilletStartet = true;
   }
 }
-
-
-
-/*boolean knapRamt1(int x, int y, int sX, int sY) {
-  float disX = x - mouseX;
-  float disY = y - mouseY;
-  float 
-  if (sqrt(sq(disX) + sq(disY)) < diameter/2 ) {
-    return true;
-  } else {
-    return false;
-  }
-}*/
 
 boolean knapRamt(int x, int y, int width, int height)  {
   if (mouseX >= x && mouseX <= x+width && 

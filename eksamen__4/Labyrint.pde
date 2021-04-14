@@ -1,64 +1,42 @@
-public class Labyrint{
-  
- void mur(int x, int y){
-   
-  color hoved    = get(x+32,y+14); //tjekker den pixels farve
-  color ryg      = get(x+32,y+55);
-  color vskulder = get(x+14,y+32);
+public class Labyrint {
 
-  println("hoved" + hoved);
-  println("skulder" + vskulder);
-    fill(hoved);
-   rect(x+32,y+14,5,5);
-   fill(ryg);
-   rect(x+32,y+49,5,5);
-   fill(vskulder);
-   rect(x+14,y+32,5,5);
-   //fill(hskulder);
-   rect(x+49,y+32,5,5);
-  
-   /*
-  if(hoved == -379125){ //-10000 skal self rettes når rigtige variabel findes
-    y -= 0;
-    println("t");
+    boolean hovedRamt(int x,int y) {
+    boolean hovedRamt = false;
+    color hoved = get(x+32, y+10); //tjekker den pixels farve
+    println(hoved);
+     if(hoved == -558592){ 
+     hovedRamt = true;
+     } 
+     return hovedRamt;
   }
-  if(ryg == -379125){
-    y += 0;
-    println("h");
-  }
-  if(vskulder == -1623283){
-    x -= 0;
-    println("o");
-  } */
   
-     
-   }
-   
-  boolean hovedRamt(){
-  color hoved   = get(x+32,y+14); //tjekker den pixels farve
-  boolean hramt = false;
-   if(hoved == -379125){ //-10000 skal self rettes når rigtige variabel findes
-      hramt = true;
-}
-   return hramt;
-}
-
-  boolean hskulderRamt(){
-  color hskulder = get(x+55,y+32);
-  boolean hsramt = false;
-    if(hskulder == -1623283){
-      hsramt = true;
-    println("w");
+      boolean rygRamt(int x,int y) {
+    boolean rygRamt = false;
+    color ryg = get(x+32, y+51);
+    println(ryg);
+     if(ryg == -575232){ //find rette farve
+     rygRamt = true;
+     } 
+     return rygRamt;
   }
-   return hsramt;
+  
+       boolean hskulderRamt(int x,int y) {
+    boolean hskulderRamt = false;
+     color hskulder = get(x+55, y+32);
+    println(hskulder);
+     if(hskulder == -1414912){ //find rette farve
+     hskulderRamt = true;
+     } 
+     return hskulderRamt;
+  }
+  
+     boolean vskulderRamt(int x,int y) {
+    boolean vskulderRamt = false;
+    color vskulder = get(x+10, y+32);
+    println(vskulder);
+     if(vskulder == -1623283){ //find rette farve
+     vskulderRamt = true;
+     } 
+     return vskulderRamt;
+  }
 }
-
-
-
-}
-
-
-
-
-   
-   
