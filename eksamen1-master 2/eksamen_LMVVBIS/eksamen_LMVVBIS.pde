@@ -84,6 +84,7 @@ void setup(){
 //setup til level 1
 void setupFirstLevel() {
   
+  println("level 1"); //for at se hvornår level1 starter
   myTimer = new Timer();
   setupTimer(); //timer sættes 
  
@@ -94,14 +95,11 @@ void setupFirstLevel() {
   brx = 270; //baby slut kordinat
   bry = 550; //baby slut kordinat
 
-  klarTilLevel2 = false;
-  erNextLevelSatOp = false; 
-
   gameLevel = 1;
   //hvor hurtigt den tæller ned
   myTimer.schedule(myTask, 1000, 1000);
 
-   bby = new baby();
+  bby = new baby();
 
   brand2 = new ild();
   brand4 = new ild();
@@ -113,6 +111,7 @@ void setupFirstLevel() {
 
 //setup til level 2
 void setupNextLevel() {
+  println("level 2"); //for at se hvornår level2 starter
   setupTimer(); //timer sættes igen til level 2
   bg = loadImage("hus.png"); 
   bg.loadPixels(); //
@@ -128,9 +127,8 @@ void setupNextLevel() {
   brandNextLevel5 = new ild();
 }
 
-
 void draw() {
-  //println("klarTilNextLevel: " + klarTilNextLevel + " erNextLevelSatOp: " + erNextLevelSatOp);
+  println("klarTilNextLevel: " + klarTilLevel2 + " erNextLevelSatOp: " + erNextLevelSatOp);
   
   //if knappen er trykket kommer baggrund på 
   if (erSpilletStartet) {
@@ -139,9 +137,10 @@ void draw() {
     helt.tegnBrandmand(x, y, 65, 65);
     bby.tegnBaby(bX, bY, 20, 35); 
     bby.babyReddet(x+35, y+14);
-    klarTilLevel2 = bby.babySafe(x, y)/* && !brand2.ildSlukket() && !brand4.ildSlukket() && !brand5.ildSlukket() && !brand7.ildSlukket()*/;
+    klarTilLevel2 = bby.babySafe(x, y) && !brand2.ildSlukket() && !brand4.ildSlukket() && !brand5.ildSlukket() && !brand7.ildSlukket();
    
     if (gameLevel == 1 && klarTilLevel2) { 
+      println("vundet level 1");
       setupNextLevel();
       gameLevel = 2;
     }
@@ -199,10 +198,13 @@ void draw() {
     update(mouseX, mouseY);
     knap.tegnKnap(rectX, rectY, rectSizeX, rectSizeY, knapText);
 
-    if (buttonWasClicked){
-      
+    if (buttonWasClicked && !klarTilLevel2){
+      setupFirstLevel();
       DisplayText();
-    }
+    } else if (buttonWasClicked && klarTilLevel2){
+      setupNextLevel();
+      DisplayText();
+    } 
   }
 }
 
@@ -251,7 +253,6 @@ void keyPressed() { //wasd kontrollerne
 void mouseClicked() {
   if (knap.knapRamt(rectX, rectY, rectSizeX, rectSizeY)) {
     buttonWasClicked = true;
-    //setupFirstLevel();
     erSpilletStartet = true;
   }
 }
